@@ -254,12 +254,12 @@ By default, the below analytics components will be not be installed.
   cassandra
   kafka
 ```
-They are tied with below five roles.
-```analytics_alarm``` - If added, alarm-gen will be installed
-```analytics_query_engine``` - If added, query-engine will be installed
-```analytics_snmp``` - If added, snmp-collector and topology will be installed
-```analytics_database_cassandra``` - If added, cassandra will be installed
-```analytics_database_kafka``` - If added, kafka and zookeeper will be installed
+They are tied with below five roles:
+* `analytics_alarm` - If added, alarm-gen will be installed
+* `analytics_query_engine` - If added, query-engine will be installed
+* `analytics_snmp` - If added, snmp-collector and topology will be installed
+* `analytics_database_cassandra` - If added, cassandra will be installed
+* `analytics_database_kafka` - If added, kafka and zookeeper will be installed
 
 [Complete list of contrail_configuration](contrail_configuration.md)
 
@@ -335,9 +335,13 @@ instances:
 ```
 ### more examples
 [GCE k8s HA with separate control and data plane instaces](examples/gce1.md)
+
 [AWS Kolla HA with separate control and data plane instaces](examples/aws1.md)
+
 [KVM Kolla per instance and role configuration](examples/kvm1.md)
+
 [KVM Kolla and k8s](examples/bms2.md)
+
 [BMS remote compute configuration](examples/bms1.md)
 
 ### start the playbooks
