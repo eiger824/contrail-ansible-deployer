@@ -102,9 +102,9 @@ Please check [Optional Contrail Analytics Components](https://github.com/Juniper
 ** NOTE **
 Ansible 2.4.2.0 is temporary fix for 2.5 issues with our playbooks.
 
-## instructions
+## Instructions
 
-### get the playbooks
+### Get the playbooks
 
 ```
 #For Contrail R5.0 use 
@@ -126,9 +126,7 @@ The playbooks support installing Contrail on these providers:
 
 The playbook contains three plays:
 
-1. playbooks/provision_instances.yml
-
-Provisions operating system instances for hosting the containers
+1. __playbooks/provision_instances.yml__: Provisions operating system instances for hosting the containers
 to the following infrastructure providers:
 
 * kvm
@@ -137,23 +135,17 @@ to the following infrastructure providers:
 * azure (to be implemented)
 * openstack (to be implemented)
 
-2. playbooks/configure_instances.yml
+2. __playbooks/configure_instances.yml__: Configures provisioned instances. Applicable to all providers. Installs software, configures operating system as outlined under prerquisites.
 
-Configures provisioned instances. Applicable to all providers.
-Installs software, configures operating system as outlined under
-prerquisites.
+3. __playbooks/install_contrail.yml__: Pulls, configures and starts Contrail containers.
 
-3.. playbooks/install_contrail.yml
-
-Pulls, configures and starts Contrail containers.
-
-#### configuration
+#### Configuration
 
 Configuration for all three plays is done in a single file (default location:
 config/instances.yaml)
 The configuration has multiple main sections.
 
-#### provider configuration
+#### Provider configuration
 
 This section configures provider specific settings.
 
