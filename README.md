@@ -117,33 +117,33 @@ git clone http://github.com/Juniper/contrail-ansible-deployer
 ### Providers
 
 The playbooks support installing Contrail on these providers:
--- bms - Baremetal Server
--- kvm - KVM hosted Virtual Machines
--- gce - GCE hosted Virtual Machines
--- aws - AWS hosted Virtual Machines
+* bms - Baremetal Server
+* kvm - KVM hosted Virtual Machines
+* gce - GCE hosted Virtual Machines
+* aws - AWS hosted Virtual Machines
 
 ### The plays
 
 The playbook contains three plays:
 
-- playbooks/provision_instances.yml
+1. playbooks/provision_instances.yml
 
 Provisions operating system instances for hosting the containers
 to the following infrastructure providers:
 
--- kvm
--- gce
--- aws
--- azure (to be implemented)
--- openstack (to be implemented)
+* kvm
+* gce
+* aws
+* azure (to be implemented)
+* openstack (to be implemented)
 
-- playbooks/configure_instances.yml
+2. playbooks/configure_instances.yml
 
 Configures provisioned instances. Applicable to all providers.
 Installs software, configures operating system as outlined under
 prerquisites.
 
-- playbooks/install_contrail.yml
+3.. playbooks/install_contrail.yml
 
 Pulls, configures and starts Contrail containers.
 
