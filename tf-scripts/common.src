@@ -1,0 +1,29 @@
+#!/bin/bash
+
+test_if_root()
+{
+    if [ $UID -ne 0 ]; then
+        echo "Run this script as the superuser" >&2
+        exit 1
+    fi
+}
+
+wait_for_vm_stop()
+{
+    if [ $# -gt 0 ]; then
+        while virsh domstate $1 | grep -i "shutting" &> /dev/null; do
+            sleep 1
+        done
+    fi
+    echo "Stopped \"${1}\"!!"
+}
+
+wait_for_vm_start()
+{
+    if [ $# -gt 0 ]; then
+        while virsh domstate $1 | grep -i "starting" &> /dev/null; do
+            sleep 1
+        done
+        echo "Started \"${1}\"!!"
+    fi
+}
