@@ -5,9 +5,9 @@ virt-install --name {{ container_vm_hostname }} \
 --vcpus={{ vcpu }} \
 --ram={{ vram }} \
 {% if item.value.port_group is defined %}
---network network={{ item.value.bridge }},model=virtio,portgroup={{ item.value.port_group }} \
+--network bridge={{ item.value.bridge }},model=virtio,portgroup={{ item.value.port_group }} \
 {% else %}
---network network={{ item.value.bridge }},model=virtio \
+--network bridge={{ item.value.bridge }},model=virtio \
 {% endif %}
 {% if item.value.additional_interfaces is defined %}
 {% for additional_interface in item.value.additional_interfaces %}
