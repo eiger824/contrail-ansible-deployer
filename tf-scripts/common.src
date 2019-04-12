@@ -2,9 +2,11 @@
 
 test_if_root()
 {
-    if [ $UID -ne 0 ]; then
-        echo "Run this script as the superuser" >&2
-        exit 1
+    if ! id $(whoami) | egrep '(kvm|libvirtd)' &> /dev/null; then
+        if [ $UID -ne 0 ]; then
+            echo "Run this script as the superuser" >&2
+            exit 1
+        fi
     fi
 }
 

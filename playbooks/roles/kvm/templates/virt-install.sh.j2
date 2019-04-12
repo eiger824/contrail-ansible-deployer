@@ -13,9 +13,9 @@ virt-install --name {{ container_vm_hostname }} \
 {% for additional_interface in item.value.additional_interfaces %}
 {% if additional_interface.bridge is defined %}
 {% if additional_interface.port_group is defined %}
---network network={{ additional_interface.bridge }},model=virtio,portgroup={{ additional_interface.port_group }} \
+--network bridge={{ additional_interface.bridge }},model=virtio,portgroup={{ additional_interface.port_group }} \
 {% else %}
---network network={{ additional_interface.bridge }},model=virtio \
+--network bridge={{ additional_interface.bridge }},model=virtio \
 {% endif %}
 {% endif %}
 {% endfor %}
