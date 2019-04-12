@@ -1,5 +1,22 @@
 #!/bin/bash
 
+pad_str()
+{
+    local w
+    local msg
+    w=$1
+    shift
+    msg=$@
+    if [ ${#msg} -ge $w ]; then
+        echo "${msg}"
+    else
+        echo -n "${msg}"
+        for i in $(seq 1 $(( $w - ${#msg} ))); do
+            echo -n " "
+        done
+    fi
+}
+
 test_if_root()
 {
     if ! id $(whoami) | egrep '(kvm|libvirtd)' &> /dev/null; then
