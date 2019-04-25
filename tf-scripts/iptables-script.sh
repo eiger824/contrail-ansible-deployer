@@ -157,6 +157,10 @@ cmd_exec iptables -A FORWARD -p tcp -d $TF_CONT_INTNET101 --dport 8143 -m state 
 cmd_exec iptables -t nat  -A PREROUTING -p tcp -i $EXTIF --dport 8080 -j DNAT --to-destination $OS_CONT_INTNET101:80
 cmd_exec iptables -A FORWARD -p tcp -d $OS_CONT_INTNET101 --dport 80 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
 
+# Allow for remote VNC connections to port 6080
+cmd_exec iptables -t nat  -A PREROUTING -p tcp -i $EXTIF --dport 6080 -j DNAT --to-destination $OS_CONT_INTNET101:6080
+cmd_exec iptables -A FORWARD -p tcp -d $OS_CONT_INTNET101 --dport 6080 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+
 # Enabling stuff in /proc ######################################################
 cmd_exec "echo 1 > /proc/sys/net/ipv4/tcp_syncookies"
 cmd_exec "echo 1 > /proc/sys/net/ipv4/icmp_echo_ignore_broadcasts"
@@ -186,4 +190,4 @@ cmd_exec iptables -I INPUT -p tcp --dport 22 -j ACCEPT
 cmd_exec iptables -L -n -v
 cmd_exec iptables -t nat -L -n -v
 
-exit $?ST
+exit $?
