@@ -4,9 +4,7 @@ source common.src
 
 test_if_root
 
-for vm in contrail-controller-01 \
-    contrail-compute-01 \
-    contrail-compute-02; do
+for vm in ${VMS}; do
     if virsh domstate ${vm} | grep -i "running" &> /dev/null; then
         echo "Skipping \"${vm}\", already running!"
     else

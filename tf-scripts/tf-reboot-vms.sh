@@ -9,9 +9,7 @@ source common.src
 
 test_if_root
 
-for vm in contrail-controller-01 \
-    contrail-compute-01 \
-    contrail-compute-02; do
+for vm in ${VMS}; do
     if virsh domstate ${vm} | grep -i "shut off" &> /dev/null; then
         echo "Skipping \"${vm}\", not running!"
     else

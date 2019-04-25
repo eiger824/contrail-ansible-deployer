@@ -1,6 +1,7 @@
 localhost:
   hosts:
     localhost:
+      ansible_port: 22 
       config_file: ../config/instances.yaml
       connection: local
       ansible_connection: local

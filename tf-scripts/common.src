@@ -46,3 +46,7 @@ wait_for_vm_start()
         echo "Started \"${1}\"!!"
     fi
 }
+
+export CONTROLLERS="contrail-controller-01 openstack-controller-01"
+export COMPUTES="contrail-compute-01 contrail-compute-02 contrail-compute-03 contrail-compute-04"
+export VMS="${CONTROLLERS} ${COMPUTES}"

@@ -6,53 +6,87 @@ provider_config:
         ssh_user: root
         ssh_public_key: ~/.ssh/id_rsa.pub
         ssh_private_key: ~/.ssh/id_rsa
-        vcpu: 2
-        vram: 8192
+        vcpu: 4
+        vram: 32000 
         vdisk: 60G
-        subnet_prefix: 150.132.87.0
+        subnet_prefix: 192.168.101.0
         subnet_netmask: 255.255.255.0
-        gateway: 150.132.87.1
+        gateway: 192.168.101.98
         nameserver: 150.132.93.100
         ntpserver: SESSIWEGAD00007.ericsson.se 
         domainsuffix: local
 instances:
     contrail-controller-01:
         provider: kvm
-        host: 150.132.87.104
-        bridge: br0
-        ip: 150.132.87.243
+        host: 127.0.0.1
+        bridge: virbr0
+        ip: 192.168.101.50
         additional_interfaces:
-            - bridge: br1
-              ip: 10.0.0.3
+            - bridge: virbr1
+              ip: 192.168.100.50
               mask: 255.255.255.0
         roles:
-            openstack:
             config:
             config_database:
             control:
             analytics:
             analytics_database:
             webui:
+    openstack-controller-01:
+        provider: kvm
+        host: 127.0.0.1
+        bridge: virbr0
+        ip: 192.168.101.100
+        additional_interfaces:
+            - bridge: virbr1
+              ip: 192.168.100.100
+              mask: 255.255.255.0
+        roles:
+            openstack:
     contrail-compute-01:
         provider: kvm
-        host: 150.132.87.104
-        bridge: br0
-        ip: 150.132.87.244
+        host: 127.0.0.1
+        bridge: virbr0
+        ip: 192.168.101.101
         additional_interfaces:
-            - bridge: br1
-              ip: 10.0.0.4
+            - bridge: virbr1
+              ip: 192.168.100.101
               mask: 255.255.255.0
         roles:
             openstack_compute:
             vrouter:
     contrail-compute-02:
         provider: kvm
-        host: 150.132.87.104
-        bridge: br0
-        ip: 150.132.87.245
+        host: 127.0.0.1
+        bridge: virbr0
+        ip: 192.168.101.102
         additional_interfaces:
-            - bridge: br1
-              ip: 10.0.0.5
+            - bridge: virbr1
+              ip: 192.168.100.102
+              mask: 255.255.255.0
+        roles:
+            openstack_compute:
+            vrouter:
+    contrail-compute-03:
+        provider: kvm
+        host: 127.0.0.1
+        bridge: virbr0
+        ip: 192.168.101.103
+        additional_interfaces:
+            - bridge: virbr1
+              ip: 192.168.100.103
+              mask: 255.255.255.0
+        roles:
+            openstack_compute:
+            vrouter:
+    contrail-compute-04:
+        provider: kvm
+        host: 127.0.0.1
+        bridge: virbr0
+        ip: 192.168.101.104
+        additional_interfaces:
+            - bridge: virbr1
+              ip: 192.168.100.104
               mask: 255.255.255.0
         roles:
             openstack_compute:
@@ -68,19 +102,19 @@ contrail_configuration:
     #
     # API/MGMT IP. One controller, so it's the one specified
     # by instance name `contrail-controller-01'
-    CONTROLLER_NODES: 150.132.87.243
+    CONTROLLER_NODES: 192.168.101.50
     # CTRL/DATA. The internal network, only for data traffic
     # of workload and for control traffic between compute nodes
     # and control services
     #
     # Use this to specify the IP addresses on each contrail node where
     # Contrail services are to be hosted. In this instance, all contrail
-    # services will run on the CTRL/DATA subnet 10.0.0.0/24
-    CONTROL_NODES: 10.0.0.3
+    # services will run on the CTRL/DATA subnet 192.168.100.0/24
+    CONTROL_NODES: 192.168.100.50
 
     # Important to specify as well the gateway the vRouter will
     # have on the CTRL/DATA network:
-    VROUTER_GATEWAY: 10.0.0.1
+    VROUTER_GATEWAY: 192.168.100.225
 
     # Openstack related
     CLOUD_ORCHESTRATOR: openstack
@@ -95,9 +129,9 @@ contrail_configuration:
 # Kolla specific config
 kolla_config:
     kolla_globals:
-#         network_interface: eth1
-# kolla_external_vip_address: 10.0.0.10
-#         kolla_internal_vip_address: 150.132.87.246
+        # network_interface: eth1
+        # kolla_external_vip_address: 192.168.100.10
+        # kolla_internal_vip_address: 192.168.101.246
         enable_ironic: no
         enable_swift: no
         enable_haproxy: no 

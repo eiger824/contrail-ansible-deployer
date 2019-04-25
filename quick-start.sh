@@ -47,22 +47,25 @@ check_err()
 #     exit 1
 # fi
 
+# ssh_port="-e ansible_ssh_port=9898"
+verbose=""
+
 # Provision instances first - create KVMs
 banner "Provisioning instances!"
-ansible-playbook -e orchestrator=openstack -i inventory/ playbooks/provision_instances.yml
+ansible-playbook ${verbose} -e orchestrator=openstack ${ssh_port} -i inventory/ playbooks/provision_instances.yml
 check_err $?
 
 # Configure these machines
 banner "Configuring instances!"
-ansible-playbook -e orchestrator=openstack -i inventory/ playbooks/configure_instances.yml
+ansible-playbook ${verbose} -e orchestrator=openstack ${ssh_port} -i inventory/ playbooks/configure_instances.yml
 check_err $?
 
 # Install Openstack Kolla
 banner "Installing Openstack!"
-ansible-playbook -e orchestrator=openstack -i inventory/ playbooks/install_openstack.yml
+ansible-playbook ${verbose} -e orchestrator=openstack ${ssh_port} -i inventory/ playbooks/install_openstack.yml
 check_err $?
 
 # Deploy Contrail
 banner "Installing Tungsten Fabric!"
-ansible-playbook -e orchestrator=openstack -i inventory/ playbooks/install_contrail.yml
+ansible-playbook ${verbose} -e orchestrator=openstack ${ssh_port} -i inventory/ playbooks/install_contrail.yml
 check_err $?
